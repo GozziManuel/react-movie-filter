@@ -9,6 +9,16 @@ const filmsElements = [
   { title: "Interstellar", genre: "Fantascienza" },
   { title: "Pulp Fiction", genre: "Thriller" },
 ];
+const noDuplicateFilm = [];
+// for cycle for eliminating duplicates
+for (const element of filmsElements) {
+  const indexArray = element.genre;
+  const test = indexArray.indexOf(noDuplicateFilm);
+  if (noDuplicateFilm.indexOf(indexArray) === -1) {
+    noDuplicateFilm.push(indexArray);
+  }
+  console.log(test);
+}
 
 // Usestate to trace value
 
@@ -38,8 +48,8 @@ export default function MainApp() {
           value={userChoice}
         >
           <option selected>Scegli il genere</option>
-          {filmsElements.map((element, index) => (
-            <option key={index}>{element.genre}</option>
+          {noDuplicateFilm.map((element, index) => (
+            <option key={index}>{element}</option>
           ))}
         </select>
       </div>
