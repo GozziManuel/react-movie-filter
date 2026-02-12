@@ -1,8 +1,10 @@
+// imports elements
 import { useState, useEffect } from "react";
 
-// imports elements
+// Usestate to trace value
 
 export default function MainApp({ films }) {
+  const [userChoice, setUserChoice] = useState("");
   return (
     <>
       {/* Select */}
@@ -10,12 +12,13 @@ export default function MainApp({ films }) {
         <select
           className="form-select form-select-lg mb-3 "
           aria-label="Large select example"
+          onChange={(e) => setUserChoice(e.target.value)}
         >
           <option selected>Scegli il genere</option>
-          <option value="1">Romantico</option>
-          <option value="3">Azione</option>
-          <option value="3">Fantascienza</option>
-          <option value="4">Thriller</option>
+          <option value="Romantico">Romantico</option>
+          <option value="Azione">Azione</option>
+          <option value="Fantascienza">Fantascienza</option>
+          <option value="Thriller">Thriller</option>
         </select>
       </div>
 
