@@ -1,10 +1,32 @@
 // imports elements
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
+
+const filmsElements = [
+  { title: "Inception", genre: "Fantascienza" },
+  { title: "Il Padrino", genre: "Thriller" },
+  { title: "Titanic", genre: "Romantico" },
+  { title: "Batman", genre: "Azione" },
+  { title: "Interstellar", genre: "Fantascienza" },
+  { title: "Pulp Fiction", genre: "Thriller" },
+];
 
 // Usestate to trace value
 
-export default function MainApp({ films }) {
+export default function MainApp() {
+  const [films, setFilms] = useState(filmsElements);
+
   const [userChoice, setUserChoice] = useState("");
+  const [filteredFilm, setFilteredFilms] = useState(films);
+  console.log(userChoice);
+  console.log(films.includes(userChoice));
+
+  useEffect(() => {
+    const uptadedFilms = films.filter(
+      (element) => element.genre === userChoice,
+    );
+    setFilteredFilms(uptadedFilms);
+  }, [userChoice]);
+
   return (
     <>
       {/* Select */}
@@ -13,19 +35,19 @@ export default function MainApp({ films }) {
           className="form-select form-select-lg mb-3 "
           aria-label="Large select example"
           onChange={(e) => setUserChoice(e.target.value)}
+          value={userChoice}
         >
           <option selected>Scegli il genere</option>
-          <option value="Romantico">Romantico</option>
-          <option value="Azione">Azione</option>
-          <option value="Fantascienza">Fantascienza</option>
-          <option value="Thriller">Thriller</option>
+          {filmsElements.map((element, index) => (
+            <option key={index}>{element.genre}</option>
+          ))}
         </select>
       </div>
 
       {/* result of selecting buttons */}
       <h1 className="mx-5 mb-4">Results:</h1>
       <div className="row justify">
-        {films.map((element, index) => (
+        {filteredFilm.map((element, index) => (
           <div key={index} className="col-2 ">
             <p className="text-center">{element.title}</p>
           </div>
